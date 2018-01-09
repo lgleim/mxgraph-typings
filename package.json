@@ -1,0 +1,18 @@
+{
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Lars Gleim",
+      "url": "https://github.com/lgleim"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "TypeScript definitions for mxgraph",
+  "license": "MIT",
+  "main": "",
+  "name": "@types/mxgraph",
+  "scripts": {},
+  "typeScriptVersion": "2.0",
+  "version": "0.0.1"
+}

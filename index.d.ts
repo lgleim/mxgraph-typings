@@ -11243,48 +11243,44 @@ export module mxgraph {
             */
         getPreferredPageSize(bounds: any, width: any, height: any): mxRectangle;
         /**
-            * Scales the graph such that the complete diagram fits into <container> and
-            * returns the current scale in the view. To fit an initial graph prior to
-            * rendering, set <mxGraphView.rendering> to false prior to changing the model
-            * and execute the following after changing the model.
-            *
-            * (code)
-            * graph.fit();
-            * graph.view.rendering = true;
-            * graph.refresh();
-            * (end)
-            *
-            * To fit and center the graph, the following code can be used.
-            *
-            * (code)
-            * var margin = 2;
-            * var max = 3;
-            *
-            * var bounds = graph.getGraphBounds();
-            * var cw = graph.container.clientWidth - margin;
-            * var ch = graph.container.clientHeight - margin;
-            * var w = bounds.width / graph.view.scale;
-            * var h = bounds.height / graph.view.scale;
-            * var s = Math.min(max, Math.min(cw / w, ch / h));
-            *
-            * graph.view.scaleAndTranslate(s,
-            *   (margin + cw - w * s) / (2 * s) - bounds.x / graph.view.scale,
-            *   (margin + ch - h * s) / (2 * s) - bounds.y / graph.view.scale);
-            * (end)
-            *
-            * border - Optional number that specifies the border. Default is <border>.
-            * keepOrigin - Optional boolean that specifies if the translate should be
-            * changed. Default is false.
-            * margin - Optional margin in pixels. Default is 0.
-            * enabled - Optional boolean that specifies if the scale should be set or
-            * just returned. Default is true.
-            * ignoreWidth - Optional boolean that specifies if the width should be
-            * ignored. Default is false.
-            * ignoreHeight - Optional boolean that specifies if the height should be
-            * ignored. Default is false.
-            * maxHeight - Optional maximum height.
-            */
-        fit(border: any, keepOrigin: any, margin: any, enabled: any, ignoreWidth: any, ignoreHeight: any, maxHeight: any): number;
+         * Scales the graph such that the complete diagram fits into <container> and
+         * returns the current scale in the view. To fit an initial graph prior to
+         * rendering, set <mxGraphView.rendering> to false prior to changing the model
+         * and execute the following after changing the model.
+         * 
+         * @example
+         * graph.fit();
+         * graph.view.rendering = true;
+         * graph.refresh();
+         * 
+         * @example <caption>To fit and center the graph, the following code can be used.</caption>
+         * var margin = 2;
+         * var max = 3;
+         * 
+         * var bounds = graph.getGraphBounds();
+         * var cw = graph.container.clientWidth - margin;
+         * var ch = graph.container.clientHeight - margin;
+         * var w = bounds.width / graph.view.scale;
+         * var h = bounds.height / graph.view.scale;
+         * var s = Math.min(max, Math.min(cw / w, ch / h));
+         * 
+         * graph.view.scaleAndTranslate(s,
+         *   (margin + cw - w * s) / (2 * s) - bounds.x / graph.view.scale,
+         *   (margin + ch - h * s) / (2 * s) - bounds.y / graph.view.scale);
+         * 
+         * @param border - Optional number that specifies the border. Default is <border>.
+         * @param keepOrigin - Optional boolean that specifies if the translate should be
+         * changed. Default is false.
+         * @param margin - Optional margin in pixels. Default is 0.
+         * @param enabled - Optional boolean that specifies if the scale should be set or
+         * just returned. Default is true.
+         * @param ignoreWidth - Optional boolean that specifies if the width should be
+         * ignored. Default is false.
+         * @param ignoreHeight - Optional boolean that specifies if the height should be
+         * ignored. Default is false.
+         * @param maxHeight - Optional maximum height.
+         */
+        fit(border?: number, keepOrigin?: boolean, margin?: number, enabled?: boolean, ignoreWidth?: boolean, ignoreHeight?: boolean, maxHeight?: number): number;
         /**
             * Called when the size of the graph has changed. This implementation fires
             * a <size> event after updating the clipping region of the SVG element in

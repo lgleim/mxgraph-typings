@@ -17057,7 +17057,7 @@ export module mxgraph {
         * event listener is installed.
         */
     export class mxKeyHandler {
-        constructor(graph: any, target: any);
+        constructor(graph: any, target?: any);
         /**
             * Returns true if events are handled. This implementation returns
             * <enabled>.

@@ -11670,7 +11670,7 @@ export module mxgraph {
             * includeEdges - Optional boolean which specifies if all connected edges
             * should be removed as well. Default is true.
             */
-        removeCells(cells: any, includeEdges: any): any;
+        removeCells(cells?: any, includeEdges?: any): any;
         /**
             * Removes the given cells from the model. This method fires
             * <mxEvent.CELLS_REMOVED> while the transaction is in progress.

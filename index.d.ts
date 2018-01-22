@@ -3407,7 +3407,7 @@ export module mxgraph {
             * The function argument uses the following signature: funct(evt, cell) where
             * evt is the native mouse event and cell is the cell under the mouse.
             */
-        addMode(title: any, icon: any, funct: any, pressedIcon: any, style: any, toggle: any): HTMLImageElement | HTMLButtonElement;
+        addMode(title: any, icon: any, funct: any, pressedIcon?: any, style?: any, toggle?: any): HTMLImageElement | HTMLButtonElement;
         /**
             * Resets the state of the previously selected mode and displays the given
             * DOM node as selected. This function fires a select event with the given

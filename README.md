@@ -12,9 +12,9 @@ npm install -D lgleim/mxgraph-typings
 Usage
 
 ```typescript
-import mxGraphFactory, {mxgraph} from 'mxgraph';
+import {mxgraph} from 'mxgraph'; // Typings only - no code!
 ...
-const mx = mxGraphFactory({
+const mx = require('mxgraph')({
     mxImageBasePath: 'mxgraph/images',
     mxBasePath: 'mxgraph'
 });

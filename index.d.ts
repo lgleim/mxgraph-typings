@@ -5654,22 +5654,135 @@ export module mxgraph {
     }
 
     /**
-        * Extends <mxGraphLayout> to implement a fast organic layout algorithm.
-        * The vertices need to be connected for this layout to work, vertices
-        * with no connections are ignored.
-        *
-        * Example:
-        *
-        * (code)
-        * var layout = new mxFastOrganicLayout(graph);
-        * layout.execute(graph.getDefaultParent());
-        * (end)
-        *
-        * Constructor: mxCompactTreeLayout
-        *
-        * Constructs a new fast organic layout for the specified graph.
-        */
+     * Extends <mxGraphLayout> to implement a fast organic layout algorithm.
+     * The vertices need to be connected for this layout to work, vertices
+     * with no connections are ignored.
+     * 
+     * @example
+     * var layout = new mxFastOrganicLayout(graph);
+     * layout.execute(graph.getDefaultParent());
+     */
     export class mxFastOrganicLayout extends mxGraphLayout {
+        /**
+         * Specifies if the top left corner of the input cells should be the origin
+         * of the layout result. Default is true.
+         */
+        useInputOrigin: boolean;
+
+        /**
+         * Specifies if all edge points of traversed edges should be removed.
+         * Default is true.
+         */
+        resetEdges: boolean;
+
+        /**
+         * Specifies if the STYLE_NOEDGESTYLE flag should be set on edges that are
+         * modified by the result. Default is true.
+         */
+        disableEdgeStyle: boolean;
+
+        /**
+         * The force constant by which the attractive forces are divided and the
+         * replusive forces are multiple by the square of. The value equates to the
+         * average radius there is of free space around each node. Default is 50.
+         */
+        forceConstant: number;
+        /**
+         * Cache of <forceConstant>^2 for performance.
+         */
+        forceConstantSquared: number;
+
+        /**
+         * Minimal distance limit. Default is 2. Prevents of
+         * dividing by zero.
+         */
+        minDistanceLimit: number;
+
+        /**
+         * Minimal distance limit. Default is 2. Prevents of
+         * dividing by zero.
+         */
+        maxDistanceLimit: number;
+
+        /**
+         * Cached version of <minDistanceLimit> squared.
+         */
+        minDistanceLimitSquared: number;
+
+        /**
+         * Start value of temperature. Default is 200.
+         */
+        initialTemp: number;
+
+        /**
+         * Temperature to limit displacement at later stages of layout.
+         */
+        temperature: number;
+
+        /**
+         * Total number of iterations to run the layout though.
+         */
+        maxIterations: number;
+
+        /**
+         * Current iteration count.
+         */
+        iteration: number;
+
+        /**
+         * An array of all vertices to be laid out.
+         */
+        vertexArray;
+
+        /**
+         * An array of locally stored X co-ordinate displacements for the vertices.
+         */
+        dispX;
+
+        /**
+         * An array of locally stored Y co-ordinate displacements for the vertices.
+         */
+        dispY;
+
+        /**
+         * An array of locally stored co-ordinate positions for the vertices.
+         */
+        cellLocation;
+
+        /**
+         * The approximate radius of each cell, nodes only.
+         */
+        radius;
+
+        /**
+         * The approximate radius squared of each cell, nodes only.
+         */
+        radiusSquared;
+
+        /**
+         * Array of booleans representing the movable states of the vertices.
+         */
+        isMoveable;
+
+        /**
+         * Local copy of cell neighbours.
+         */
+        neighbours;
+
+        /**
+         * Hashtable from cells to local indices.
+         */
+        indices;
+
+        /**
+         * Boolean flag that specifies if the layout is allowed to run. If this is
+         * set to false, then the layout exits in the following iteration.
+         */
+        allowedToRun: boolean;
+
+        /**
+         * Constructs a new fast organic layout for the specified graph.
+         */
         constructor(graph: any);
         /**
             * Returns a boolean indicating if the given <mxCell> should be ignored as a
@@ -10876,6 +10989,14 @@ export module mxgraph {
             * If the resource for this key does not exist then the value is used as
             * the tooltip. Default is 'collapse-expand'.
             */
+        tooltipHandler: mxTooltipHandler;
+        selectionCellsHandler: mxSelectionCellsHandler;
+        connectionHandler: mxConnectionHandler;
+        graphHandler: mxGraphHandler;
+        panningHandler: mxPanningHandler;
+        popupMenuHandler: mxPopupMenuHandler;
+        graphModelChangeListener;
+        panningManager;
         collapseExpandResource: string;
         container: HTMLScriptElement;
         /**
@@ -11636,7 +11757,7 @@ export module mxgraph {
             * @param source - Optional <mxCell> that represents the source terminal.
             * @param target - Optional <mxCell> that represents the target terminal.
             */
-        addCell(cell: mxCell, parent: mxCell, index?: number, source?: mxCell, target?: mxCell): mxCell;
+        addCell(cell: mxCell, parent?: mxCell, index?: number, source?: mxCell, target?: mxCell): mxCell;
         /**
             * Adds the cells to the parent at the given index, connecting each cell to
             * the optional source and target terminal. The change is carried out using
@@ -19573,7 +19694,7 @@ export module mxgraph {
         * deterministic. Default is true.
         */
     export class mxHierarchicalLayout extends mxGraphLayout {
-        constructor(graph: any, orientation: any, deterministic: any);
+        constructor(graph: any, orientation?: string, deterministic?: boolean);
         /**
             * Returns the internal <mxGraphHierarchyModel> for this layout algorithm.
             */

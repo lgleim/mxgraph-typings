@@ -7081,9 +7081,8 @@ export module mxgraph {
         execute(): void;
     }
 
-    export interface Value extends Object {
-        nodeName: string;
-    }
+    type Value = any;
+    
     /**
         * Cells are the elements of the graph model. They represent the state
         * of the groups, vertices and edges in a graph.

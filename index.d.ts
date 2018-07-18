@@ -5728,51 +5728,51 @@ export module mxgraph {
          * Current iteration count.
          */
         iteration: number;
-
+        
         /**
          * An array of all vertices to be laid out.
          */
-        vertexArray;
+        vertexArray: any;
 
         /**
          * An array of locally stored X co-ordinate displacements for the vertices.
          */
-        dispX;
+        dispX: any;
 
         /**
          * An array of locally stored Y co-ordinate displacements for the vertices.
          */
-        dispY;
+        dispY: any;
 
         /**
          * An array of locally stored co-ordinate positions for the vertices.
          */
-        cellLocation;
+        cellLocation: any;
 
         /**
          * The approximate radius of each cell, nodes only.
          */
-        radius;
+        radius: any;
 
         /**
          * The approximate radius squared of each cell, nodes only.
          */
-        radiusSquared;
+        radiusSquared: any;
 
         /**
          * Array of booleans representing the movable states of the vertices.
          */
-        isMoveable;
+        isMoveable: any;
 
         /**
          * Local copy of cell neighbours.
          */
-        neighbours;
+        neighbours: any;
 
         /**
          * Hashtable from cells to local indices.
          */
-        indices;
+        indices: any;
 
         /**
          * Boolean flag that specifies if the layout is allowed to run. If this is
@@ -7082,7 +7082,7 @@ export module mxgraph {
     }
 
     type Value = any;
-    
+
     /**
         * Cells are the elements of the graph model. They represent the state
         * of the groups, vertices and edges in a graph.
@@ -10994,8 +10994,8 @@ export module mxgraph {
         graphHandler: mxGraphHandler;
         panningHandler: mxPanningHandler;
         popupMenuHandler: mxPopupMenuHandler;
-        graphModelChangeListener;
-        panningManager;
+        graphModelChangeListener: any;
+        panningManager: any;
         collapseExpandResource: string;
         container: HTMLScriptElement;
         /**

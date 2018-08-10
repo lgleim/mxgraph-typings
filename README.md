@@ -9,20 +9,33 @@ Install via
 npm install -D lgleim/mxgraph-typings
 ```
 
-Usage
+Usage (Working in Angular 5.x)
 
 ```typescript
-import {mxgraph} from 'mxgraph'; // Typings only - no code!
-...
-const mx = require('mxgraph')({
-    mxImageBasePath: 'mxgraph/images',
-    mxBasePath: 'mxgraph'
+import { mxgraph } from 'mxgraph'; // Typings only - no code!
+
+declare var require: any;
+
+const mx: typeof mxgraph = require('mxgraph')({
+	mxBasePath: 'mxgraph'
 });
 
-// mxGraph classes can now be accessed through mx namespace object
-// c.f. https://jgraph.github.io/mxgraph/docs/manual.html#2.1.3
-// mxGraph types can be accessed from mxgraph namespace
-const graph: mxgraph.mxGraph = mx.mxGraph(someDOMContainer);
+@Component(...)
+export class DashboardComponent {
+
+	@ViewChild('dashboard') dashboard: ElementRef;
+
+	private graph: mxgraph.mxGraph; 
+    
+	ngAfterViewInit() {
+			this.graph = new mx.mxGraph(this.dashboard.nativeElement);
+			xml = "<?xml version='1.0' encoding='UTF-8'?><mxGraphModel><root><mxCell id='0'/>...</root></mxGraphModel>";
+			
+			let doc = mx.mxUtils.parseXml(xml);
+			let codec = new mx.mxCodec(doc);
+			codec.decode(doc.documentElement, this.graph.getModel());		
+	}
+}
 ```
 
 If you are using the Angular CLI you can add the following line to your .angular=cli.json assets array to make the mxGraph assets available

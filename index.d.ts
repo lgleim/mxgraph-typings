@@ -11716,7 +11716,7 @@ export module mxgraph {
             * @param {boolean} [relative] Optional boolean that specifies if the geometry is relative.
             * Default is false.
             */
-        insertVertex(parent: mxCell, id: string, value: Object, x: number, y: number, width: number, height: number, style?: string, relative?: boolean): mxCell;
+        insertVertex(parent: mxCell, id: string | null, value: Object, x: number, y: number, width: number, height: number, style?: string, relative?: boolean): mxCell;
         /**
             * Adds a new edge into the given parent {@link mxCell} using value as the user
             * object and the given source and target as the terminals of the new edge.
@@ -11730,7 +11730,7 @@ export module mxgraph {
             * @param {mxCell} target Target of the edge.
             * @param {string} [style] Optional string that defines the cell style.
             */
-        insertEdge(parent: mxCell, id: string, value: Object, source: mxCell, target: mxCell, style?: string): mxCell;
+        insertEdge(parent: mxCell, id: string | null, value: Object, source: mxCell, target: mxCell, style?: string): mxCell;
         /**
             * Adds the edge to the parent and connects it to the given source and
             * target terminals. This is a shortcut method. Returns the edge that was

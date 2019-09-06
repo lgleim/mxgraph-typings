@@ -402,6 +402,8 @@ export module mxgraph {
         * (end)
         */
     export class mxShape {
+
+        constraints: any;
         /**
             * Holds the dialect in which the shape is to be painted.
             * This can be one of the DIALECT constants in <mxConstants>.
@@ -1043,6 +1045,7 @@ export module mxgraph {
         * 1. This is stored in <strokewidth>.
         */
     export class mxPolyline extends mxShape {
+
         constructor(points: mxPoint[], stroke: string, strokewidth?: number);
         /**
             * Returns 0.
@@ -3841,7 +3844,7 @@ export module mxgraph {
         * graph - Reference to the enclosing graph.
         */
     export class mxAutoSaveManager extends mxEventSource {
-        constructor(graph: any);
+        constructor(graph: any);    
         /**
             * Returns true if events are handled. This implementation
             * returns <enabled>.
@@ -5377,40 +5380,142 @@ export module mxgraph {
         * spacing, orientation and offset.
         */
     export class mxStackLayout extends mxGraphLayout {
+        /**
+         * Variable: horizontal
+         *
+         * Specifies the orientation of the layout. Default is true.
+         */
+        horizontal: boolean;
+
+        /**
+         * Variable: spacing
+         *
+         * Specifies the spacing between the cells. Default is 0.
+         */
+        spacing: number;
+        /**
+         * Variable: x0
+         *
+         * Specifies the horizontal origin of the layout. Default is 0.
+         */
+        x0: number;
+        /**
+         * Variable: y0
+         *
+         * Specifies the vertical origin of the layout. Default is 0.
+         */
+        y0: number;
+        /**
+         * Variable: border
+         *
+         * Border to be added if fill is true. Default is 0.
+         */
+        border: number;
+        /**
+         * Variable: marginTop
+         *
+         * Top margin for the child area. Default is 0.
+         */
+        marginTop: number;
+        /**
+         * Variable: marginLeft
+         *
+         * Left margin for the child area. Default is 0.
+         */
+        marginLeft: number;
+        /**
+         * Variable: marginRight
+         *
+         * Right margin for the child area. Default is 0.
+         */
+        marginRight: number;
+        /**
+         * Variable: marginBottom
+         *
+         * Bottom margin for the child area. Default is 0.
+         */
+        marginBottom: number;
+        /**
+         * Variable: keepFirstLocation
+         *
+         * Boolean indicating if the location of the first cell should be
+         * kept, that is, it will not be moved to x0 or y0.
+         */
+        keeoFirstLocation: boolean;
+        /**
+         * Variable: fill
+         *
+         * Boolean indicating if dimension should be changed to fill out the parent
+         * cell. Default is false.
+         */
+        fill: boolean;
+        /**
+         * Variable: resizeParent
+         *
+         * If the parent should be resized to match the width/height of the
+         * stack. Default is false.
+         */
+        resizeParent: boolean;
+        /**
+         * Variable: resizeParentMax
+         *
+         * Use maximum of existing value and new value for resize of parent.
+         * Default is false.
+         */
+        resizeParentMax: boolean;
+        /**
+         * Variable: resizeLast
+         *
+         * If the last element should be resized to fill out the parent. Default is
+         * false. If <resizeParent> is true then this is ignored.
+         */
+        resizeLast: boolean;
+        /**
+         * Variable: wrap
+         *
+         * Value at which a new column or row should be created. Default is null.
+         */
+        wrap: boolean;
+        /**
+         * Variable: borderCollapse
+         *
+         * If the strokeWidth should be ignored. Default is true.
+         */
+        borderCollapse: boolean;
         constructor(graph: any, horizontal: any, spacing: any, x0: any, y0: any, border: any);
         /**
-            * Returns <horizontal>.
-            */
+         * Returns <horizontal>.
+         */
         isHorizontal(): any;
         /**
-            * Implements <mxGraphLayout.moveCell>.
-            */
+         * Implements <mxGraphLayout.moveCell>.
+         */
         moveCell(cell: any, x: any, y: any): void;
         /**
-            * Returns the size for the parent container or the size of the graph
-            * container if the parent is a layer or the root of the model.
-            */
+         * Returns the size for the parent container or the size of the graph
+         * container if the parent is a layer or the root of the model.
+         */
         getParentSize(parent: any): any;
         /**
-            * Implements <mxGraphLayout.execute>.
-            *
-            * Only children where <isVertexIgnored> returns false are taken into
-            * account.
-            */
+         * Implements <mxGraphLayout.execute>.
+         *
+         * Only children where <isVertexIgnored> returns false are taken into
+         * account.
+         */
         execute(parent: any): void;
         /**
-            * Implements <mxGraphLayout.execute>.
-            *
-            * Only children where <isVertexIgnored> returns false are taken into
-            * account.
-            */
+         * Implements <mxGraphLayout.execute>.
+         *
+         * Only children where <isVertexIgnored> returns false are taken into
+         * account.
+         */
         setChildGeometry(child: any, geo: any): void;
         /**
-            * Implements <mxGraphLayout.execute>.
-            *
-            * Only children where <isVertexIgnored> returns false are taken into
-            * account.
-            */
+         * Implements <mxGraphLayout.execute>.
+         *
+         * Only children where <isVertexIgnored> returns false are taken into
+         * account.
+         */
         updateParentGeometry(parent: any, pgeo: any, last: any): void;
     }
 
@@ -5469,6 +5574,220 @@ export module mxgraph {
         * and orientation.
         */
     export class mxCompactTreeLayout extends mxGraphLayout {
+
+        /**
+         * Variable: horizontal
+         *
+         * Specifies the orientation of the layout. Default is true.
+         */
+        horizontal = null;	 
+
+        /**
+         * Variable: invert
+         *
+         * Specifies if edge directions should be inverted. Default is false.
+         */
+        invert = null;	 
+
+        /**
+         * Variable: resizeParent
+         * 
+         * If the parents should be resized to match the width/height of the
+         * children. Default is true.
+         */
+        resizeParent = true;
+
+        /**
+         * Variable: maintainParentLocation
+         * 
+         * Specifies if the parent location should be maintained, so that the
+         * top, left corner stays the same before and after execution of
+         * the layout. Default is false for backwards compatibility.
+         */
+        maintainParentLocation = false;
+
+        /**
+         * Variable: groupPadding
+         * 
+         * Padding added to resized parents. Default is 10.
+         */
+        groupPadding = 10;
+
+        /**
+         * Variable: groupPaddingTop
+         * 
+         * Top padding added to resized parents. Default is 0.
+         */
+        groupPaddingTop = 0;
+
+        /**
+         * Variable: groupPaddingRight
+         * 
+         * Right padding added to resized parents. Default is 0.
+         */
+        groupPaddingRight = 0;
+
+        /**
+         * Variable: groupPaddingBottom
+         * 
+         * Bottom padding added to resized parents. Default is 0.
+         */
+        groupPaddingBottom = 0;
+
+        /**
+         * Variable: groupPaddingLeft
+         * 
+         * Left padding added to resized parents. Default is 0.
+         */
+        groupPaddingLeft = 0;
+
+        /**
+         * Variable: parentsChanged
+         *
+         * A set of the parents that need updating based on children
+         * process as part of the layout.
+         */
+        parentsChanged = null;
+
+        /**
+         * Variable: moveTree
+         * 
+         * Specifies if the tree should be moved to the top, left corner
+         * if it is inside a top-level layer. Default is false.
+         */
+        moveTree = false;
+
+        /**
+         * Variable: visited
+         * 
+         * Specifies if the tree should be moved to the top, left corner
+         * if it is inside a top-level layer. Default is false.
+         */
+        visited = null;
+
+        /**
+         * Variable: levelDistance
+         *
+         * Holds the levelDistance. Default is 10.
+         */
+        levelDistance = 10;
+
+        /**
+         * Variable: nodeDistance
+         *
+         * Holds the nodeDistance. Default is 20.
+         */
+        nodeDistance = 20;
+
+        /**
+         * Variable: resetEdges
+         * 
+         * Specifies if all edge points of traversed edges should be removed.
+         * Default is true.
+         */
+        resetEdges = true;
+
+        /**
+         * Variable: prefHozEdgeSep
+         * 
+         * The preferred horizontal distance between edges exiting a vertex.
+         */
+        prefHozEdgeSep = 5;
+
+        /**
+         * Variable: prefVertEdgeOff
+         * 
+         * The preferred vertical offset between edges exiting a vertex.
+         */
+        prefVertEdgeOff = 4;
+
+        /**
+         * Variable: minEdgeJetty
+         * 
+         * The minimum distance for an edge jetty from a vertex.
+         */
+        minEdgeJetty = 8;
+
+        /**
+         * Variable: channelBuffer
+         * 
+         * The size of the vertical buffer in the center of inter-rank channels
+         * where edge control points should not be placed.
+         */
+        channelBuffer = 4;
+
+        /**
+         * Variable: edgeRouting
+         * 
+         * Whether or not to apply the internal tree edge routing.
+         */
+        edgeRouting = true;
+
+        /**
+         * Variable: sortEdges
+         * 
+         * Specifies if edges should be sorted according to the order of their
+         * opposite terminal cell in the model.
+         */
+        sortEdges = false;
+
+        /**
+         * Variable: alignRanks
+         * 
+         * Whether or not the tops of cells in each rank should be aligned
+         * across the rank
+         */
+        alignRanks = false;
+
+        /**
+         * Variable: maxRankHeight
+         * 
+         * An array of the maximum height of cells (relative to the layout direction)
+         * per rank
+         */
+        maxRankHeight = null;
+
+        /**
+         * Variable: root
+         * 
+         * The cell to use as the root of the tree
+         */
+        root = null;
+
+        /**
+         * Variable: node
+         * 
+         * The internal node representation of the root cell. Do not set directly
+         * , this value is only exposed to assist with post-processing functionality
+         */
+        node = null;
+
+        /**
+         * Function: isVertexIgnored
+         * 
+         * Returns a boolean indicating if the given <mxCell> should be ignored as a
+         * vertex. This returns true if the cell has no connections.
+         * 
+         * Parameters:
+         * 
+         * vertex - <mxCell> whose ignored state should be returned.
+         */
+        isVertexIgnored = function(vertex)
+        {
+        	return mxGraphLayout.prototype.isVertexIgnored.apply(this, arguments) ||
+        		this.graph.getConnections(vertex).length == 0;
+        };
+
+        /**
+         * Function: isHorizontal
+         * 
+         * Returns <horizontal>.
+         */
+        isHorizontal = function()
+        {
+        	return this.horizontal;
+        };
+
         constructor(graph: any, horizontal: any, invert: any);
         /**
             * Returns a boolean indicating if the given <mxCell> should be ignored as a
@@ -5728,7 +6047,7 @@ export module mxgraph {
          * Current iteration count.
          */
         iteration: number;
-        
+
         /**
          * An array of all vertices to be laid out.
          */
@@ -11374,8 +11693,8 @@ export module mxgraph {
          * graph.refresh();
          * 
          * @example <caption>To fit and center the graph, the following code can be used.</caption>
-         * var margin = 2;
-         * var max = 3;
+         * var margin = 100;
+         * var max = 2;
          * 
          * var bounds = graph.getGraphBounds();
          * var cw = graph.container.clientWidth - margin;
@@ -11716,7 +12035,7 @@ export module mxgraph {
             * @param {boolean} [relative] Optional boolean that specifies if the geometry is relative.
             * Default is false.
             */
-        insertVertex(parent: mxCell, id: string | null, value: Object, x: number, y: number, width: number, height: number, style?: string, relative?: boolean): mxCell;
+        insertVertex(parent: mxCell, id: string, value: Object, x: number, y: number, width: number, height: number, style?: string, relative?: boolean): mxCell;
         /**
             * Adds a new edge into the given parent {@link mxCell} using value as the user
             * object and the given source and target as the terminals of the new edge.
@@ -11730,7 +12049,7 @@ export module mxgraph {
             * @param {mxCell} target Target of the edge.
             * @param {string} [style] Optional string that defines the cell style.
             */
-        insertEdge(parent: mxCell, id: string | null, value: Object, source: mxCell, target: mxCell, style?: string): mxCell;
+        insertEdge(parent: mxCell, id: string, value: Object, source: mxCell, target: mxCell, style?: string): mxCell;
         /**
             * Adds the edge to the parent and connects it to the given source and
             * target terminals. This is a shortcut method. Returns the edge that was
@@ -12342,7 +12661,7 @@ export module mxgraph {
             *
             * @param cell - Optional <mxCell> for which the cell states should be cleared.
             */
-        refresh(cell: mxCell): void;
+        refresh(cell?: mxCell): void;
         /**
             * Snaps the given numeric value to the grid if <gridEnabled> is true.
             *
@@ -14835,6 +15154,175 @@ export module mxgraph {
         * graph - Reference to the enclosing <mxGraph>.
         */
     export class mxGraphHandler {
+
+        /**
+         * Variable: graph
+         * 
+         * Reference to the enclosing <mxGraph>.
+         */
+        graph = null;
+
+        /**
+         * Variable: maxCells
+         * 
+         * Defines the maximum number of cells to paint subhandles
+         * for. Default is 50 for Firefox and 20 for IE. Set this
+         * to 0 if you want an unlimited number of handles to be
+         * displayed. This is only recommended if the number of
+         * cells in the graph is limited to a small number, eg.
+         * 500.
+         */
+        maxCells = (mxClient.IS_IE) ? 20 : 50;
+
+        /**
+         * Variable: enabled
+         * 
+         * Specifies if events are handled. Default is true.
+         */
+        enabled = true;
+
+        /**
+         * Variable: highlightEnabled
+         * 
+         * Specifies if drop targets under the mouse should be enabled. Default is
+         * true.
+         */
+        highlightEnabled = true;
+
+        /**
+         * Variable: cloneEnabled
+         * 
+         * Specifies if cloning by control-drag is enabled. Default is true.
+         */
+        cloneEnabled = true;
+
+        /**
+         * Variable: moveEnabled
+         * 
+         * Specifies if moving is enabled. Default is true.
+         */
+        moveEnabled = true;
+
+        /**
+         * Variable: guidesEnabled
+         * 
+         * Specifies if other cells should be used for snapping the right, center or
+         * left side of the current selection. Default is false.
+         */
+        guidesEnabled = false;
+
+        /**
+         * Variable: guide
+         * 
+         * Holds the <mxGuide> instance that is used for alignment.
+         */
+        guide = null;
+
+        /**
+         * Variable: currentDx
+         * 
+         * Stores the x-coordinate of the current mouse move.
+         */
+        currentDx = null;
+
+        /**
+         * Variable: currentDy
+         * 
+         * Stores the y-coordinate of the current mouse move.
+         */
+        currentDy = null;
+
+        /**
+         * Variable: updateCursor
+         * 
+         * Specifies if a move cursor should be shown if the mouse is over a movable
+         * cell. Default is true.
+         */
+        updateCursor = true;
+
+        /**
+         * Variable: selectEnabled
+         * 
+         * Specifies if selecting is enabled. Default is true.
+         */
+        selectEnabled = true;
+
+        /**
+         * Variable: removeCellsFromParent
+         * 
+         * Specifies if cells may be moved out of their parents. Default is true.
+         */
+        removeCellsFromParent = true;
+
+        /**
+         * Variable: removeEmptyParents
+         * 
+         * If empty parents should be removed from the model after all child cells
+         * have been moved out. Default is true.
+         */
+        removeEmptyParents = false;
+
+        /**
+         * Variable: connectOnDrop
+         * 
+         * Specifies if drop events are interpreted as new connections if no other
+         * drop action is defined. Default is false.
+         */
+        connectOnDrop = false;
+
+        /**
+         * Variable: scrollOnMove
+         * 
+         * Specifies if the view should be scrolled so that a moved cell is
+         * visible. Default is true.
+         */
+        scrollOnMove = true;
+
+        /**
+         * Variable: minimumSize
+         * 
+         * Specifies the minimum number of pixels for the width and height of a
+         * selection border. Default is 6.
+         */
+        minimumSize = 6;
+
+        /**
+         * Variable: previewColor
+         * 
+         * Specifies the color of the preview shape. Default is black.
+         */
+        previewColor = 'black';
+
+        /**
+         * Variable: htmlPreview
+         * 
+         * Specifies if the graph container should be used for preview. If this is used
+         * then drop target detection relies entirely on <mxGraph.getCellAt> because
+         * the HTML preview does not "let events through". Default is false.
+         */
+        htmlPreview = false;
+
+        /**
+         * Variable: shape
+         * 
+         * Reference to the <mxShape> that represents the preview.
+         */
+        shape = null;
+
+        /**
+         * Variable: scaleGrid
+         * 
+         * Specifies if the grid should be scaled. Default is false.
+         */
+        scaleGrid = false;
+
+        /**
+         * Variable: rotationEnabled
+         * 
+         * Specifies if the bounding box should allow for rotation. Default is true.
+         */
+        rotationEnabled = true;
+
         constructor(graph: any);
         /**
             * Returns <enabled>.
@@ -16236,6 +16724,80 @@ export module mxgraph {
         * using rubberband selection.
         */
     export class mxRubberband {
+
+        
+        /**
+         * Variable: defaultOpacity
+         * 
+         * Specifies the default opacity to be used for the rubberband div. Default
+         * is 20.
+         */
+        defaultOpacity = 20;
+
+        /**
+         * Variable: enabled
+         * 
+         * Specifies if events are handled. Default is true.
+         */
+        enabled = true;
+
+        /**
+         * Variable: div
+         * 
+         * Holds the DIV element which is currently visible.
+         */
+        div = null;
+
+        /**
+         * Variable: sharedDiv
+         * 
+         * Holds the DIV element which is used to display the rubberband.
+         */
+        sharedDiv = null;
+
+        /**
+         * Variable: currentX
+         * 
+         * Holds the value of the x argument in the last call to <update>.
+         */
+        currentX = 0;
+
+        /**
+         * Variable: currentY
+         * 
+         * Holds the value of the y argument in the last call to <update>.
+         */
+        currentY = 0;
+
+        /**
+         * Variable: fadeOut
+         * 
+         * Optional fade out effect. Default is false.
+         */
+        fadeOut = false;
+
+        /**
+         * Function: isEnabled
+         * 
+         * Returns true if events are handled. This implementation returns
+         * <enabled>.
+         */
+        isEnabled = function()
+        {
+        	return this.enabled;
+        };
+
+        /**
+         * Function: setEnabled
+         * 
+         * Enables or disables event handling. This implementation updates
+         * <enabled>.
+         */
+        setEnabled = function(enabled)
+        {
+        	this.enabled = enabled;
+        };
+
         constructor(graph: any);
         /**
             * Returns true if events are handled. This implementation returns
@@ -18307,7 +18869,7 @@ export module mxgraph {
         * config - Optional XML node that contains the configuration.
         */
     export class mxEditor extends mxEventSource {
-        constructor(config: any);
+        constructor(config?: any);
         /**
             * Returns <modified>.
             */
@@ -18913,7 +19475,7 @@ export module mxgraph {
         * using <mxUtils.createXmlDocument>.
         */
     export class mxCodec {
-        constructor(document: any);
+        constructor(document?: any);
         /**
             * Assoiates the given object with the given ID and returns the given object.
             *
